@@ -1,5 +1,6 @@
 .App {
-  text-align: center;
+  position: relative;
+  min-height: 100vh;/* text-align: center; */
 }
 
 .App-logo {
@@ -27,6 +28,9 @@
 .App-link {
   color: #61dafb;
 }
+.card.center{
+  margin: 0 auto;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -35,4 +39,20 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+nav.mb-4.navbar.navbar-expand-lg.navbar-light.bg-light, footer.py-3.mt-4{
+  background-color: #272727!important;
+}
+a.nav-item.nav-link, .navbar-brand, a.nav-link.px-2.text-muted{
+  color: #a7a7a7!important;
+}
+footer {
+
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+
 }
