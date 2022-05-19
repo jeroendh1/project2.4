@@ -94,7 +94,6 @@ const geojson = {
         // create a HTML element for each feature
         const el = document.createElement('div');
         el.className = 'marker';
-         console.log(0)
         // make a marker for each feature and add it to the map
         new mapboxgl.Marker(el)
         .setLngLat(feature.geometry.coordinates)
@@ -125,19 +124,17 @@ const geojson = {
                             <Card.Body>
                                 <Card.Title>Top 10 Windiest Places</Card.Title>
                                 <Card.Subtitle className="mb-4 text-muted">In Arabic peninsula</Card.Subtitle>
-                                <Card.Text>
-                                   1.<span class="ms-2">Oman</span> <span class="ms-4"> 80 km/h</span>
+                                   1.<span className="ms-2">Oman</span> <span className="ms-4"> 80 km/h</span>
                                    <hr></hr>
-                                   2.<span class="ms-2">Jemen</span> <span class="ms-4"> 75 km/h</span>
+                                   2.<span className="ms-2">Jemen</span> <span className="ms-4"> 75 km/h</span>
                                    <hr></hr>
-                                   3.<span class="ms-2">Saudi-Arabië</span> <span class="ms-4"> 69 km/h</span>
+                                   3.<span className="ms-2">Saudi-Arabië</span> <span className="ms-4"> 69 km/h</span>
                                    <hr></hr>
-                                   4.<span class="ms-2">Qatar</span> <span class="ms-4"> 58 km/h</span>
+                                   4.<span className="ms-2">Qatar</span> <span className="ms-4"> 58 km/h</span>
                                    <hr></hr>
-                                   5.<span class="ms-2">Iran</span> <span class="ms-4"> 57 km/h</span>
+                                   5.<span className="ms-2">Iran</span> <span className="ms-4"> 57 km/h</span>
                                    <hr></hr>
-                                </Card.Text>
-                              
+                            
                             </Card.Body>
                             </Card>
                         </Col>
