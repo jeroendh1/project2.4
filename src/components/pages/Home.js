@@ -1,129 +1,123 @@
-import React, { useState } from "react"
-import { link } from "react-router-dom"
+import React, { useRef, useEffect, useState } from "react"
 import {Container, Row, Col, Card, } from "react-bootstrap"
-import {
-    useJsApiLoader,
-    GoogleMap,
-    Marker,
-    Autocomplete,
-    DirectionsRenderer,
-  } from '@react-google-maps/api'
-  import { useRef } from 'react'
-
- 
+import mapboxgl from 'mapbox-gl';
+mapboxgl.accessToken = 'pk.eyJ1IjoiamVyb2VuZGVoYWFuIiwiYSI6ImNsM2Rjdjg0cDA3N2oza3B2M2pyZmxxcGcifQ.xw6YF9mf-O3M7FFjZ41SHA';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default
 function Home(){
-    const center = { lat: 20.03300, lng: 45.318161 }
-    const { isLoaded } = useJsApiLoader({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-        libraries: ['places'],
-      })
-    
-      if (!isLoaded) {
-        return ''
-      }
- 
-    
+
+  const mapContainer = useRef(null);
+  const map = useRef(null);
+const geojson = {
+    'type': 'FeatureCollection',
+    'features': [
+        {'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 50.61700, 26.26700 ] },'properties': { 'description': 'البحرين'}}
+        ,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 50.65000, 26.26700 ] },'properties': { 'description': 'البحرين'}}
+        
+        //sa
+        ,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 42.66700, 19.96700 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 45.66700, 20.46700 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 40.53300, 21.48300 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 39.20000, 21.50000 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 49.80000, 26.43300 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 49.81700, 26.45000 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 50.16700, 26.26700 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 49.48300, 25.30000 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 36.48300, 26.20000 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 43.76700, 26.30000 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 46.73300, 24.70000 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 46.71700, 24.93300 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 38.06700, 24.13300 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 47.31700, 24.15000 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 39.70000, 24.55000 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 43.48300, 29.61700 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 40.10000, 29.78300 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 37.28300, 31.40000 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 40.98300, 30.96700 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 41.13300, 30.90000 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 38.73300, 31.68300 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 41.68300, 27.43300 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 36.60000, 28.38300 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 45.51700, 27.91700 ] },'properties': { 'description': 'السعودية'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 38.90000, 30.53300 ] },'properties': { 'description': 'السعودية'}}
+//om
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 54.08300, 17.03300 ] },'properties': { 'description': 'عمان'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 56.23300, 26.16700 ] },'properties': { 'description': 'عمان'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 57.63300, 23.06700 ] },'properties': { 'description': 'عمان'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 56.63300, 24.46700 ] },'properties': { 'description': 'عمان'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 58.28300, 23.58300 ] },'properties': { 'description': 'عمان'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 58.90000, 20.66700 ] },'properties': { 'description': 'عمان'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 54.08300, 17.03300 ] },'properties': { 'description': 'عمان'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 54.01700, 17.66700 ] },'properties': { 'description': 'عمان'}}
+//ye
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 44.21700, 15.48300 ] },'properties': { 'description': 'اليمن'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 45.03300, 12.83300 ] },'properties': { 'description': 'اليمن'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 44.18300, 15.51700 ] },'properties': { 'description': 'اليمن'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 45.03300, 12.83300 ] },'properties': { 'description': 'اليمن'}}
+//ae
+	
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 55.93300, 25.80000 ] },'properties': { 'description': 'الإمارات العربية المتحدة'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 55.38300, 25.35000 ] },'properties': { 'description': 'الإمارات العربية المتحدة'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 55.33300, 25.25000 ] },'properties': { 'description': 'الإمارات العربية المتحدة'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 55.93300, 25.61700 ] },'properties': { 'description': 'الإمارات العربية المتحدة'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 56.33300, 25.10000 ] },'properties': { 'description': 'الإمارات العربية المتحدة'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 55.33300, 25.25000 ] },'properties': { 'description': 'الإمارات العربية المتحدة'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 55.51700, 25.33300 ] },'properties': { 'description': 'الإمارات العربية المتحدة'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 55.60000, 24.26700 ] },'properties': { 'description': 'الإمارات العربية المتحدة'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 54.46700, 24.43300 ] },'properties': { 'description': 'الإمارات العربية المتحدة'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 54.65000, 24.43300 ] },'properties': { 'description': 'الإمارات العربية المتحدة'}}
+//kw
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 47.96600, 29.22200 ] },'properties': { 'description': 'الكويت'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 48.33300, 29.44900 ] },'properties': { 'description': 'الكويت'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 47.66700, 29.31700 ] },'properties': { 'description': 'الكويت'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 48.06000, 28.55600 ] },'properties': { 'description': 'الكويت'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 47.57700, 29.61000 ] },'properties': { 'description': 'الكويت'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 47.76700, 29.80000 ] },'properties': { 'description': 'الكويت'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 48.20000, 29.56700 ] },'properties': { 'description': 'الكويت'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 48.37500, 29.76800 ] },'properties': { 'description': 'الكويت'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 46.68200, 29.10100 ] },'properties': { 'description': 'الكويت'}}
+,{'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ 48.00000, 29.41700 ] },'properties': { 'description': 'الكويت'}}
+    ]
+    };
+    useEffect(() => {
+        if (map.current) return; // initialize map only once
+        map.current = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [ 45.318161 , 20.03300],
+        zoom: 3
+        });
+
+        map.current.addControl(new mapboxgl.NavigationControl()); 
+
+    for (const feature of geojson.features) {
+        // create a HTML element for each feature
+        const el = document.createElement('div');
+        el.className = 'marker';
+         console.log(0)
+        // make a marker for each feature and add it to the map
+        new mapboxgl.Marker(el)
+        .setLngLat(feature.geometry.coordinates)
+        .setPopup(
+        new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML(
+        `<p>${feature.properties.description}</p>`
+        )
+        )
+        .addTo(map.current);
+        }
+
+    });
+
     return ( 
        <div className="Home">
             <>
                 <Container>
                     <Row>
                         <Col sm={8}>
-                        <GoogleMap
-                            center={center}
-                            zoom={4}
-                            mapContainerStyle={{ width: '100%', height: '100%' }}
-                            options={{
-                                zoomControl: true,
-                                streetViewControl: false,
-                                mapTypeControl: false,
-                                fullscreenControl: false,
-                            }} 
-                        >
-{/* Oman */}
-                            <Marker position={ {lat: 17.03300, lng:54.08300 }} />
-                            <Marker position={ {lat: 26.16700, lng:56.23300 }} />
-                            <Marker position={ {lat: 23.06700, lng:57.63300 }} />
-                            <Marker position={ {lat: 24.46700, lng:56.63300 }} />
-                            <Marker position={ {lat: 23.58300, lng:58.28300 }} />
-                            <Marker position={ {lat: 20.66700, lng:58.90000 }} />
-                            <Marker position={ {lat: 17.03300, lng:54.08300 }} />
-                            <Marker position={ {lat: 17.66700, lng:54.01700 }} />
-                            <Marker position={{ lat: 19.96700, lng:42.66700  }} />
-{/* saudi arabia  */}
-<Marker position={{ lat: 20.46700, lng:45.66700  }} />
-<Marker position={{ lat: 21.48300, lng:40.53300  }} />
-<Marker position={{ lat: 21.50000, lng:39.20000  }} />
-<Marker position={{ lat: 26.43300, lng:49.80000  }} />
-<Marker position={{ lat: 26.45000, lng:49.81700  }} />
-<Marker position={{ lat: 26.26700, lng:50.16700  }} />
-<Marker position={{ lat: 25.30000, lng:49.48300  }} />
-<Marker position={{ lat: 26.20000, lng:36.48300  }} />
-<Marker position={{ lat: 26.30000, lng:43.76700  }} />
-<Marker position={{ lat: 24.70000, lng:46.73300  }} />
-<Marker position={{ lat: 24.93300, lng:46.71700  }} />
-<Marker position={{ lat: 24.13300, lng:38.06700  }} />
-<Marker position={{ lat: 24.15000, lng:47.31700  }} />
-<Marker position={{ lat: 24.55000, lng:39.70000  }} />
-<Marker position={{ lat: 29.61700, lng:43.48300  }} />
-<Marker position={{ lat: 29.78300, lng:40.10000  }} />
-<Marker position={{ lat: 31.40000, lng:37.28300  }} />
-<Marker position={{ lat: 30.96700, lng:40.98300  }} />
-<Marker position={{ lat: 30.90000, lng:41.13300  }} />
-<Marker position={{ lat: 31.68300, lng:38.73300  }} />
-<Marker position={{ lat: 27.43300, lng:41.68300  }} />
-<Marker position={{ lat: 28.38300, lng:36.60000  }} />
-<Marker position={{ lat: 27.91700, lng:45.51700  }} />
-<Marker position={{ lat: 30.53300, lng:38.90000  }} />
-{/* yemen */}
-<Marker position={{ lat: 15.48300, lng:44.21700  }} />
-<Marker position={{ lat: 12.83300, lng:45.03300  }} />
-<Marker position={{ lat: 15.51700, lng:44.18300  }} />
-<Marker position={{ lat: 12.83300, lng:45.03300  }} />
-{/* verenigde arabische emiraten */}
-<Marker position={{ lat: 25.80000, lng:55.93300  }} />
-<Marker position={{ lat: 25.35000, lng:55.38300  }} />
-<Marker position={{ lat: 25.25000, lng:55.33300  }} />
-<Marker position={{ lat: 25.61700, lng:55.93300  }} />
-<Marker position={{ lat: 25.10000, lng:56.33300  }} />
-<Marker position={{ lat: 25.25000, lng:55.33300  }} />
-<Marker position={{ lat: 25.33300, lng:55.51700  }} />
-<Marker position={{ lat: 24.26700, lng:55.60000  }} />
-<Marker position={{ lat: 24.43300, lng:54.46700  }} />
-<Marker position={{ lat: 24.43300, lng:54.65000  }} />
-{/* Qatar */}
-<Marker position={{ lat: 25.26700, lng:51.55000  }} />
-<Marker position={{ lat: 25.25000, lng:51.56700  }} />
-{/* Iran */}
-<Marker position={{ lat: 27.20000, lng:60.70000  }} />
-<Marker position={{ lat: 27.21700, lng:56.36700  }} />
-<Marker position={{ lat: 28.96700, lng:53.68300  }} />
-<Marker position={{ lat: 28.98300, lng:50.83300  }} />
-<Marker position={{ lat: 29.53300, lng:52.53300  }} />
-<Marker position={{ lat: 29.46700, lng:60.88300  }} />
-<Marker position={{ lat: 30.25000, lng:56.96700  }} />
-<Marker position={{ lat: 25.43300, lng:60.36700  }} />
-<Marker position={{ lat: 31.90000, lng:54.28300  }} />
-<Marker position={{ lat: 30.36700, lng:48.25000  }} />
-<Marker position={{ lat: 31.33300, lng:48.66700  }} />
-<Marker position={{ lat: 32.86700, lng:59.20000  }} />
-<Marker position={{ lat: 25.43300, lng:60.36700  }} />
-<Marker position={{ lat: 32.46700, lng:51.66700  }} />
-<Marker position={{ lat: 25.43300, lng:60.36700  }} />
-<Marker position={{ lat: 26.51700, lng:53.98300  }} />
-<Marker position={{ lat: 25.43300, lng:60.36700  }} />
-<Marker position={{ lat: 35.55000, lng:53.38300  }} />
-<Marker position={{ lat: 35.26700, lng:59.21700  }} />
-<Marker position={{ lat: 34.26700, lng:47.11700  }} />
-<Marker position={{ lat: 36.41700, lng:54.95000  }} />
-<Marker position={{ lat: 36.71700, lng:52.65000  }} />
-<Marker position={{ lat: 36.65000, lng:51.50000  }} />
-<Marker position={{ lat: 36.90000, lng:50.66700  }} />
-<Marker position={{ lat: 36.25000, lng:50.00000  }} />
-{/* bahrein */}
-<Marker position={{ lat: 26.26700, lng:50.61700  }} />
-<Marker position={{ lat: 26.26700, lng:50.65000  }} />
-                        </GoogleMap>
+                        {/* <div id='map'></div> */}
+                    
+                        <div ref={mapContainer} className="map-container" />
                             {/* <img className="img-fluid" src="map.png"/> */}
                              </Col>
                         <Col sm={4}>
@@ -153,6 +147,7 @@ function Home(){
        </div>
        
     )
+ 
 }
 
 export default Home
