@@ -9,7 +9,7 @@ function Footer(){
       <li class="nav-item"><a href="#" class="nav-link px-2 text-muted"></a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-muted"></a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-muted"></a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Login</a></li>
+      <li class="nav-item"><a href="/login" class="nav-link px-2 text-muted">Login</a></li>
     </ul>
     <p class="text-center text-muted">© 2022 WeatherData Company, Inc</p>
   </footer>
