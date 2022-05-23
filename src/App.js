@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path='/' exact element={ <Home/>} />
           <Route path='/map'  element={ <Home/>}/>
-          <Route path='/station'  element={ <Station/>}/>
+          <Route path="/station/:stationid" element={ <Station/> } />
          </Routes>
          <Footer/>
       </BrowserRouter>

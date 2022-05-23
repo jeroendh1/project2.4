@@ -1,38 +1,42 @@
 import React, { useRef, useEffect, useState } from "react"
 import {Container, Row, Col, Card, } from "react-bootstrap"
 import {Line} from 'react-chartjs-2';
+import { useParams } from "react-router-dom";
 
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Chart }            from 'react-chartjs-2'
-// eslint-disable-next-line import/no-webpack-loader-syntax
-
-const getData = async () => {
-    const response = await fetch('http://127.0.0.1:8000/api/weatherData/wind_speed/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862');
-    const stationsdata = await response.json();
-    console.log(stationsdata);
-}
-getData();
-
-const data = {
-  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+import { wait } from "@testing-library/user-event/dist/utils";
+function Station(){
+    const { stationid }= useParams();
+    var chartData = [0,9.5];
+    
+    
+    const getData = async () => {
+         
+        const response = await fetch('http://192.168.2.4:8001/api/weatherData/wind_speed/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862/' + stationid);
+        const stationsdata = await response.json();
+        const windSpeed = await stationsdata[0]['wind_speed'];
+        console.log(windSpeed);
+        return windSpeed;
+        
+    }
+    
+    chartData.push(getData());
+    chartData.push(80);
+    console.log(chartData);
+  const data = {
+  labels: ['jan',"Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan"],
   datasets: [
   {
   label: "First dataset",
-  data: [33, 53, 85, 41, 44, 65],
+  data: chartData,
   fill: true,
   backgroundColor: "rgba(75,192,192,0.2)",
   borderColor: "rgba(75,192,192,1)"
-  },
-  {
-  label: "Second dataset",
-  data: [33, 25, 35, 51, 54, 76],
-  fill: false,
-  borderColor: "#742774"
   }
   ]
   };
 
-function Station(){
 
   // const mapContainer = useRef(null);
 
@@ -45,6 +49,9 @@ function Station(){
   //     </div>
   //   )
   // }
+
+//   const { stationid } = useParams();
+  console.log(stationid );
 
     return ( 
        <div className="Home">

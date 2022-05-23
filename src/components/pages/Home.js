@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react"
 import {Container, Row, Col, Card, } from "react-bootstrap"
 import mapboxgl from 'mapbox-gl';
+import { Link } from "react-router-dom";
 mapboxgl.accessToken = 'pk.eyJ1IjoiamVyb2VuZGVoYWFuIiwiYSI6ImNsM2Rjdjg0cDA3N2oza3B2M2pyZmxxcGcifQ.xw6YF9mf-O3M7FFjZ41SHA';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -16,7 +17,7 @@ function Home(){
 
     const getData = async () => {
 
-        const response = await fetch('http://127.0.0.1:8000/api/weatherData/wind_speed/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862');
+        const response = await fetch('http://192.168.2.4:8001/api/weatherData/wind_speed/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862');
         const stationsdata = await response.json(); 
 
         if (response.status == 200 ){
@@ -64,6 +65,7 @@ function Home(){
     return ( 
        <div className="Home">
             <main>
+            <Link to={`/station/404520`}> jhbhgvhgg</Link>
                 <Container>
                     <Row>
                         <Col className="mb-4" sm={12} md={8} lg={9}>
