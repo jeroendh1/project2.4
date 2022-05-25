@@ -1,6 +1,4 @@
 import React from "react"
-import { Link } from "react-router-dom"
-import { Navbar, Container, Nav } from 'react-bootstrap'
 function Footer(){
     return (
 <footer className="py-3 mt-4">
