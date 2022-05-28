@@ -1,7 +1,9 @@
 import React, { useRef, useEffect, useState } from "react"
+import { useNavigate } from 'react-router-dom';
 import {Container, Row, Col, Card, } from "react-bootstrap"
 import mapboxgl from 'mapbox-gl';
 import { Link } from "react-router-dom";
+import { click } from "@testing-library/user-event/dist/click";
 mapboxgl.accessToken = 'pk.eyJ1IjoiamVyb2VuZGVoYWFuIiwiYSI6ImNsM2Rjdjg0cDA3N2oza3B2M2pyZmxxcGcifQ.xw6YF9mf-O3M7FFjZ41SHA';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -10,6 +12,7 @@ function Home(){
 
   const mapContainer = useRef(null);
   const map = useRef(null);
+  const navigate = useNavigate();
   
   const markers = {
     'type': 'FeatureCollection',
@@ -23,7 +26,7 @@ function Home(){
         if (response.status == 200 ){
             for (const stationdata of stationsdata) {
               
-                markers.features.push({'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ stationdata.longitude, stationdata.latitude] },'properties': { 'country':stationdata.country, 'windSpeed':stationdata.wind_speed, 'location':stationdata.location}});
+                markers.features.push({'type': 'Feature', 'geometry': { 'type': 'Point', 'coordinates': [ stationdata.longitude, stationdata.latitude] },'properties': { 'country':stationdata.country, 'windSpeed':stationdata.wind_speed, 'location':stationdata.location, 'stationId': stationdata.station_id}});
             }
         }
         const top10WindSpeed = stationsdata.sort((a, b) => parseFloat(b.wind_speed) - parseFloat(a.wind_speed));
@@ -46,26 +49,36 @@ function Home(){
             // create a HTML element for each feature
             const el = document.createElement('div');
             el.className = 'marker';
+            el.id = feature.properties.stationId;
             // make a marker for each feature and add it to the map
             new mapboxgl.Marker(el)
             .setLngLat(feature.geometry.coordinates)
             .setPopup(
             new mapboxgl.Popup({ offset: 25 }) // add popups
-            .setHTML( `<p><strong>${feature.properties.country}</strong><br>${feature.properties.location}</p> <p> Wind ${feature.properties.windSpeed} km/h</p>`)
+            .setHTML( `<p><strong>${feature.properties.country}</strong><br>${feature.properties.location}</p><p class="markerLink" id="${feature.properties.stationId}">Station: ${feature.properties.stationId}</p> <p> Wind ${feature.properties.windSpeed} km/h</p>`)
             )
             .addTo(map.current);
             }
+            
+        setTimeout(() => {
+            console.log(document.querySelector('div.marker'));
+            const markers = document.querySelectorAll('div.marker');
+            markers.forEach(marker => marker.addEventListener('click', function() {
+                navigate('/station/'+marker.id)}))            
+        }, 0);
+            
+    
 
       }
     
     useEffect(() => {
-      getData();        
+      getData();      
     });
+    
 
     return ( 
        <div className="Home">
             <main>
-            <Link to={`/station/404520`}> jhbhgvhgg</Link>
                 <Container>
                     <Row>
                         <Col className="mb-4" sm={12} md={8} lg={9}>

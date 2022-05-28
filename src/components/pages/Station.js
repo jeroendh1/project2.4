@@ -8,50 +8,45 @@ import { Chart }            from 'react-chartjs-2'
 import { wait } from "@testing-library/user-event/dist/utils";
 function Station(){
     const { stationid }= useParams();
-    var chartData = [0,9.5];
+    var localData = 0;
+    var fetchedData;
+
     
-    
-    const getData = async () => {
-         
-        const response = await fetch('http://192.168.2.4:8001/api/weatherData/wind_speed/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862/' + stationid);
-        const stationsdata = await response.json();
-        const windSpeed = await stationsdata[0]['wind_speed'];
-        console.log(windSpeed);
-        return windSpeed;
+  console.log('Data from station: '+stationid ); 
         
-    }
-    
-    chartData.push(getData());
-    chartData.push(80);
-    console.log(chartData);
-  const data = {
-  labels: ['jan',"Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan"],
-  datasets: [
-  {
-  label: "First dataset",
-  data: chartData,
-  fill: true,
-  backgroundColor: "rgba(75,192,192,0.2)",
-  borderColor: "rgba(75,192,192,1)"
+  const [data, setData] = useState(
+      {
+        labels: ["8:00","9:00","10:00","11:00"],
+        datasets: [{
+            label: "Wind speed in last 4 hours in km/h",
+            data: [],
+            fill: true,
+            backgroundColor: "rgba(75,192,192,0.2)",
+            borderColor: "rgba(75,192,192,1)"
+        }]    
   }
-  ]
-  };
+  )
+
+  useEffect(() => {
+    fetch('http://192.168.2.4:8001/api/weatherData/wind_speed/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862/' + stationid)
+    .then( response => response.json())
+    .then( response => {
+        fetchedData = {windSpeed: response[0].wind_speed, time: response[0].time}
+        console.log('Chart gets updated with...',fetchedData)
+        setData({
+            labels: ["0:00",fetchedData.time],
+            datasets: [{
+                label: "Wind speed in last 24 hours in km/h",
+                data: [localData,fetchedData.windSpeed],
+                fill: true,
+                backgroundColor: "rgba(75,192,192,0.2)",
+                borderColor: "rgba(75,192,192,1)"
+            }]
+        })
+    })
+  }, [])
 
 
-  // const mapContainer = useRef(null);
-
-
-
-  // const ChartPage = () => {
-
-  //   return (
-  //     <div>
-  //     </div>
-  //   )
-  // }
-
-//   const { stationid } = useParams();
-  console.log(stationid );
 
     return ( 
        <div className="Home">
@@ -60,7 +55,7 @@ function Station(){
                     <Row>
                         <Col sm={8}>
                         {/* <div id='map'></div> */}
-                        <Line data={data} />
+                        <Line id="Graph" data={data} />
                             {/* <img className="img-fluid" src="map.png"/> */}
                              </Col>
                         <Col sm={4}>
@@ -86,10 +81,7 @@ function Station(){
                 </Container>
               
             </>
-       </div>
-       
+       </div>  
     )
- 
 }
-
 export default Station

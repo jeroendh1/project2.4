@@ -12,7 +12,6 @@ function SideBar(){
                     <Nav className="me-auto">
                         <Link className="nav-item nav-link" to="/">Home</Link>
                         <Link className="nav-item nav-link" to="/home">Link</Link>
-                        <Link className="nav-item nav-link" to="/station">Station</Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
