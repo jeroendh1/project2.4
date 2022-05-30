@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import {Container, Row, Col, Card, } from "react-bootstrap"
 import {Line} from 'react-chartjs-2';
 import { useParams } from "react-router-dom";
@@ -28,7 +28,7 @@ function Station(){
   )
 
   useEffect(() => {
-    fetch('http://192.168.2.4:8001/api/weatherData/wind_speed/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862/' + stationid)
+    fetch('http://10.0.0.41:8001/api/weatherData/wind_speed/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862/' + stationid)
     .then( response => response.json())
     .then( response => {
         fetchedData = {windSpeed: response[0].wind_speed, time: response[0].time}

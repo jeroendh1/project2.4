@@ -18,7 +18,6 @@ fetch(
   .catch((err) => {});
 
 //set map 
-console.log(1)
 fetch(
   "https://api.maptiler.com/maps/streets/style.json?key=yOpo9nYZEpUIdZ90sgyw"
 )
@@ -28,8 +27,6 @@ fetch(
     });
   })
   .catch((err) => {});
-
-
 
 
 function App() {
