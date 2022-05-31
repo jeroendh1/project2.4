@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react"
 import {Container, Row, Col, Card, } from "react-bootstrap"
 import {Line} from 'react-chartjs-2';
 import { useParams } from "react-router-dom";
-
+// eslint-disable-next-line
 import { Chart as ChartJS } from 'chart.js/auto'
-import { Chart }            from 'react-chartjs-2'
-import { wait } from "@testing-library/user-event/dist/utils";
+// import { Chart }            from 'react-chartjs-2'
+// import { wait } from "@testing-library/user-event/dist/utils";
 function Station(){
     const { stationid }= useParams();
     var localData = 0;
@@ -28,7 +28,7 @@ function Station(){
   )
 
   useEffect(() => {
-    fetch('http://10.0.0.41:8001/api/weatherData/wind_speed/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862/' + stationid)
+    fetch('http://10.0.0.41:8001/api/weatherData/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862?columns=wind_speed')
     .then( response => response.json())
     .then( response => {
         fetchedData = {windSpeed: response[0].wind_speed, time: response[0].time}

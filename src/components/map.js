@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import maplibregl from "!maplibre-gl"; // ! is important here
+import maplibregl from '!maplibre-gl'; // ! is important here
 import maplibreglWorker from "maplibre-gl/dist/maplibre-gl-csp-worker";
 import { useNavigate } from 'react-router-dom';
 maplibregl.workerClass = maplibreglWorker;
@@ -29,29 +29,21 @@ export default function Map() {
       element.className = "marker";
       element.id = station.station_id;
       // make a marker for each feature and add it to the map
-      new maplibregl.Marker(element)
+      const marker = new maplibregl.Marker(element)
         .setLngLat([station.longitude, station.latitude])
         // add popups
       
         .setPopup(
           new maplibregl.Popup({ offset: 25 }).setHTML(
-            `<p><strong>${station.country}</strong><br>${station.location}</p><button class="markerLink">Station: ${station.station_id}</button>  <p> Wind ${station.wind_speed} km/h</p>`
+            `<p><strong>${station.country}</strong><br>${station.location}</p><button class="markerLink" id="${station.station_id}" >Station: ${station.station_id}</button>  <p> Wind ${station.wind_speed} km/h</p>`
           )
         )
         .addTo(map.current);
-    }
-
-
-    setTimeout(() => {
-    
-      const markers = document.querySelectorAll('div.marker');
-        
-      markers.forEach(marker => marker.addEventListener('click', function() {
-        // console.log(marker.ariaHidden)
-          navigate('/station/' + marker.id)
-        }))            
-  }, 0);
-      
+  
+        marker.getPopup()._content.childNodes[1].addEventListener('click', function(){
+          navigate('/station/' + this.id);
+        })
+    }      
 
   });
 

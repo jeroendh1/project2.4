@@ -9,13 +9,14 @@ import Station from './components/pages/Station';
 
 //set markers
 fetch(
-  "http://10.0.0.41:8001/api/weatherData/wind_speed/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862"
+  "http://10.0.0.41:8001/api/weatherData/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862?columns=wind_speed"
 )
   .then((response =>  response.json()))
   .then((stationsdata) => {
       localStorage.setItem("stations", JSON.stringify(stationsdata));
     })
   .catch((err) => {});
+  
 
 //set map 
 fetch(

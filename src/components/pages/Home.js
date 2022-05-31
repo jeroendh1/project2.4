@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import Map from "../../components/map.js";
 
-
 var top10 = "";
 let stations = JSON.parse(localStorage.getItem("stations"));
 let top10WindSpeeds = stations.sort(
@@ -92,6 +91,7 @@ function Home() {
                 </Card.Body>
               </Card>
             </Col>
+            <ul id='marker-list'></ul>
           </Row>
         </Container>
       </main>
