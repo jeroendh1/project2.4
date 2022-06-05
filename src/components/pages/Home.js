@@ -20,7 +20,7 @@ function Home(){
 
     const getData = async () => {
 
-        const response = await fetch('http://192.168.2.4:8001/api/weatherData/wind_speed/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862');
+        const response = await fetch('http://192.168.2.4:8001/api/weatherData/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862');
         const stationsdata = await response.json(); 
 
         if (response.status == 200 ){
