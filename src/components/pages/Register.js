@@ -6,20 +6,19 @@ export default class Register extends Component {
         const password = event.target.password.value;
         const email = event.target.email.value;
         const reactData = { email: email, password: password};
-        axios.post(api_base + '/login', reactData)
-            .then(function (response) {
-                if (response.data.redirect === '/'){
-                    window.location = '/'
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-            })
+        axios.post(api_base + '/register', reactData)
+            .then((response) => {
+                alert(response)
+            console.log(response);
+        }, (error) => {
+                alert(error)
+            console.log(error);
+        });
     }
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Sign In</h3>
+                <h3>Register a Employee</h3>
                 <div className="mb-3">
                     <label>Email address</label>
                     <input
