@@ -5,6 +5,9 @@ import Home from "./components/pages/Home";
 import Footer from "./components/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Station from './components/pages/Station';
+import Login from './components/pages/Login';
+import Register from './components/pages/Register';
+import Test from './components/pages/test';
 
 
 //set markers
@@ -34,11 +37,14 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <Navbar/>
         <Routes>
           <Route path='/' exact element={ <Home/>} />
-          <Route path='/map'  element={ <Home/>}/>
-          <Route path="/station/:stationid" element={ <Station/> } />
+          <Route path='/home'  element={ <Home/>}/>
+            <Route path='/login'  element={ <Login/>}/>
+            <Route path='/register'  element={ <Register/>}/>
+            <Route path='/test'  element={ <Test/>}/>
+            <Route path="/station/:stationid" element={ <Station/> } />
          </Routes>
          <Footer/>
       </BrowserRouter>
