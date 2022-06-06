@@ -71,3 +71,26 @@ a.nav-item.nav-link, .navbar-brand, a.nav-link.px-2.text-muted{
 color: #a7a7a7!important;
 }
 /* end footer css */
+#top10{
+  display: flex;
+  flex-direction: column;
+}
+#top10 p{
+  margin-bottom: 0px;
+}
+.mt-4.col-md-4 {
+  text-align: center;
+}
+.dataTypeButton {
+  margin-left: 3px;
+  border-width: 3px;
+  border-color: #98b2bd;
+  /* border-color: #4BC0C0; */
+  /* background-color: #d3eae4; */
+}
+
+
+#noData {
+  color: red;
+  font-weight: bold;
+}
