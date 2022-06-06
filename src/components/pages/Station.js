@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import React, { useEffect, useState } from "react"
-=======
 import React, { useRef, useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
->>>>>>> origin/Station
 import {Container, Row, Col, Card, } from "react-bootstrap"
 import {Line} from 'react-chartjs-2';
 import { useParams } from "react-router-dom";
