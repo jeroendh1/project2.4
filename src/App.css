@@ -81,3 +81,16 @@ color: #a7a7a7!important;
 .mt-4.col-md-4 {
   text-align: center;
 }
+.dataTypeButton {
+  margin-left: 3px;
+  border-width: 3px;
+  border-color: #98b2bd;
+  /* border-color: #4BC0C0; */
+  /* background-color: #d3eae4; */
+}
+
+
+#noData {
+  color: red;
+  font-weight: bold;
+}
