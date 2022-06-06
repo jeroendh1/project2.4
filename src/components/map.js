@@ -35,12 +35,12 @@ export default function Map() {
       
         .setPopup(
           new maplibregl.Popup({ offset: 25 }).setHTML(
-            `<p><strong>${station.country}</strong><br>${station.location}</p><button class="markerLink" id="${station.station_id}" >Station: ${station.station_id}</button>  <p> Wind ${station.wind_speed} km/h</p>`
+            `<p><strong>${station.country}</strong><br>${station.location}</p><p> Wind ${station.wind_speed} km/h</p><a class="markerLink" id="${station.station_id}" >Station info </a>  `
           )
         )
         .addTo(map.current);
   
-        marker.getPopup()._content.childNodes[1].addEventListener('click', function(){
+        marker.getPopup()._content.childNodes[2].addEventListener('click', function(){
           navigate('/station/' + this.id);
         })
     }      

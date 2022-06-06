@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import {Container, Row, Col, Card, } from "react-bootstrap"
 import {Line} from 'react-chartjs-2';
@@ -43,14 +43,13 @@ function Station(){
     const today = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
     date.setDate(date.getDate() - 70);
     const lastWeek = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
-    console.log('Getting data from: http://192.168.2.4:8001/api/weatherData/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862?columns=wind_speed,cloud_cover&date_start='+ lastWeek+'&date_end='+today)
-    fetch('http://192.168.2.4:8001/api/weatherData/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862?columns=wind_speed,cloud_cover&date_start='+ lastWeek+'&date_end='+today)
+    console.log('Getting data from: http://10.0.0.41:8001/api/weatherData/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862?columns=wind_speed,cloud_cover&date_start='+ lastWeek+'&date_end='+today)
+    fetch('http://10.0.0.41:8001/api/weatherData/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862?columns=wind_speed,cloud_cover&date_start='+ lastWeek+'&date_end='+today)
     .then( response => response.json())
     .then( response => {
         console.log(response)
         if (response.length != 0) {
             response.forEach(element => { 
-                console.log(element.station_id, stationId)
                 if (element.station_id == stationId) {
                     let typeData;
                     if (dataType == 'Wind speed') typeData = element.wind_speed
@@ -58,8 +57,7 @@ function Station(){
                     else document.getElementById('noData').innerHTML = 'No data available for data type';
                     const time = element.date +' '+ element.time
                     fetchedTimeData.push(time)
-                    fetchedTypeData.push(typeData)
-                    console.log(dataType,' ',typeData, time)            
+                    fetchedTypeData.push(typeData)      
                 }                
             });
             // fetchedData = {windSpeed: response[0].wind_speed, time: response[0].time}
@@ -95,8 +93,8 @@ function Station(){
                         <Col sm={8}>
                         {/* <div id='map'></div> */}
                         <div id="noData"></div>
-                        <button id="Windspeed" class="dataTypeButton" onClick={() => {localStorage.setItem('currentDataType', 'Wind speed'); setDataType('Wind speed')}}>Wind speed</button>
-                        <button id="Humidity" class="dataTypeButton" onClick={() => {localStorage.setItem('currentDataType', 'Humidity'); setDataType('Humidity')}}>Humidity</button>
+                        <button id="Windspeed" className="dataTypeButton" onClick={() => {localStorage.setItem('currentDataType', 'Wind speed'); setDataType('Wind speed')}}>Wind speed</button>
+                        <button id="Humidity" className="dataTypeButton" onClick={() => {localStorage.setItem('currentDataType', 'Humidity'); setDataType('Humidity')}}>Humidity</button>
                         <Line id="Graph" data={data} />
                             {/* <img className="img-fluid" src="map.png"/> */}
                              </Col>
