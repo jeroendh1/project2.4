@@ -12,6 +12,7 @@ function routes (app){
         let query = mysqldb.query(sql, param, (err, result) => {
             if (err) throw err
             console.log('Employee added...')
+            res.send('/login')
         })
     })
 
@@ -26,15 +27,15 @@ function routes (app){
                     if (err) { throw (err); }
                     console.log(result);
                     if (result) {
-                        //response.redirect(307, '/');
+                        response.send('/')
                         console.log("Ingelogd")
                     } else {
-                        // const redirect = {redirect: "/"}
-                        // response.json(redirect)
+                        response.send('/login')
                         console.log("Verkeerde wachtwoord")
                     }
                 });
             } else {
+                response.send('/login')
                 console.log("combinatie klopt niet ")
             }
         });

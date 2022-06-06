@@ -2,14 +2,15 @@ import React, { Component } from 'react'
 import axios from "axios";
 export default class Register extends Component {
     handleSubmit(event) {
+        event.preventDefault()
         const api_base = 'http://localhost:3001'
         const password = event.target.password.value;
         const email = event.target.email.value;
         const reactData = { email: email, password: password};
         axios.post(api_base + '/register', reactData)
             .then((response) => {
-                alert(response)
-            console.log(response);
+                window.location = response.data
+                console.log(response);
         }, (error) => {
                 alert(error)
             console.log(error);
