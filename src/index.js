@@ -11,4 +11,4 @@ root.render(
   // </React.StrictMode>
 );
 // om te cache gebruiken verander unregister() naar register() 
-serviceWorkerRegistration.unregister();
+serviceWorkerRegistration.register();
