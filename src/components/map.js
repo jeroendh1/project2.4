@@ -22,20 +22,20 @@ export default function Map() {
     map.current.addControl(new maplibregl.NavigationControl(), 'top-right');
 
     let stations = JSON.parse(localStorage.getItem("stations"));
-
-    for (const station of stations) {
+    
+    for (const [station_id, station_data] of Object.entries(stations)) {
       // create a HTML element for each feature
       const element = document.createElement("div");
       element.className = "marker";
-      element.id = station.station_id;
+      element.id = station_id;
       // make a marker for each feature and add it to the map
       const marker = new maplibregl.Marker(element)
-        .setLngLat([station.longitude, station.latitude])
+        .setLngLat([station_data.longitude, station_data.latitude])
         // add popups
       
         .setPopup(
           new maplibregl.Popup({ offset: 25 }).setHTML(
-            `<p><strong>${station.country}</strong><br>${station.location}</p><p> Wind ${station.wind_speed} km/h</p><a class="markerLink" id="${station.station_id}" >Station info </a>  `
+            `<p><strong>${station_data.country}</strong><br>${station_data.location}</p><p> Wind ${station_data.data[0].wind_speed} km/h</p><a class="markerLink" id="${station_id}" >Station info </a>  `
           )
         )
         .addTo(map.current);

@@ -4,12 +4,19 @@ import Map from "../../components/map.js";
 
 var top10 = "";
 let stations = JSON.parse(localStorage.getItem("stations"));
-let top10WindSpeeds = stations.sort(
-  (a, b) => parseFloat(b.wind_speed) - parseFloat(a.wind_speed)
+// for (const station of stations){
+//   console.log(station)
+// }
+let top10WindSpeeds = [];
+if( stations != null){
+
+top10WindSpeeds = Object.values(stations).sort(
+  (a, b) => parseFloat(b.data[b.data.length -1 ].wind_speed) - parseFloat(a.data[a.data.length -1 ].wind_speed)
 );
 top10WindSpeeds.length = 10;
 
 for (const top10WindSpeed of top10WindSpeeds) {
+
   top10 =
     top10 +
     '<p><span class="ms-2 float-start">' +
@@ -17,12 +24,18 @@ for (const top10WindSpeed of top10WindSpeeds) {
     ",  " +
     top10WindSpeed.country +
     '</span><span class="ms-4 float-end"> ' +
-    top10WindSpeed.wind_speed +
+    top10WindSpeed.data[top10WindSpeed.data.length-1].wind_speed +
     " km/h </span></p><hr>";
+}
 }
    
       
 function Home() {
+  if( stations == null){
+    return (
+      <p>Geen geldige gegevens!</p>
+    )
+  }
   return (
     <div className="Home">
       <main>
@@ -46,7 +59,7 @@ function Home() {
                             ", " +
                             top10WindSpeeds[0].country +
                             " " +
-                            top10WindSpeeds[0].wind_speed +
+                            top10WindSpeeds[0].data[top10WindSpeeds[0].data.length-1].wind_speed +
                             "Km/h",
                         }}
                       ></h6>
@@ -73,7 +86,7 @@ function Home() {
                       </Card.Subtitle>
                       <h6
                         dangerouslySetInnerHTML={{
-                          __html:  JSON.parse(localStorage.getItem("stations")).length}}
+                          __html:  Object.values(stations).length}}
                       ></h6>
                     </Card.Body>
                   </Card>
