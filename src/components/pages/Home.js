@@ -1,9 +1,13 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import Map from "../../components/map.js";
+import Warnings from "../../components/Warnings";
+import { useNavigate } from 'react-router-dom';
 
 var top10 = "";
 let stations = JSON.parse(localStorage.getItem("stations"));
+
+// console.log(stations);
 // for (const station of stations){
 //   console.log(station)
 // }
@@ -88,6 +92,17 @@ function Home() {
                         dangerouslySetInnerHTML={{
                           __html:  Object.values(stations).length}}
                       ></h6>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col className="mt-6" md={6}>
+                  <Card className="center">
+                    <Card.Body>
+                      <Card.Title>Warnings</Card.Title>
+                      <Card.Subtitle className="mb-4 text-muted">
+                        Humidity Threshold Exceeded
+                      </Card.Subtitle>
+                          <Warnings stations={Object.entries(stations)} navigation={useNavigate()}></Warnings>
                     </Card.Body>
                   </Card>
                 </Col>
