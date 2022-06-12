@@ -9,16 +9,24 @@ import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import Test from './components/pages/test';
 
+export const HUMIDITY_THRESHOLD = 85;
+export const WIND_SPEED_THRESHOLD = 63;
+
 let date = new Date(); 
 const today = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 date.setDate(date.getDate() - 70);
-const lastWeek = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+const lastWeek = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();a
 //set markers
 fetch(
   'http://127.0.0.1:8001/api/weatherData/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862?columns=wind_speed&date_start='+ lastWeek+'&date_end='+today
 )
   .then((response =>  response.json()))
   .then((stationsdata) => {
+      for (const station of Object.values(stationsdata)) {
+        const last_entry = station.data[station.data.length - 1];
+        station.warning = last_entry.humidity > HUMIDITY_THRESHOLD || last_entry.wind_speed > WIND_SPEED_THRESHOLD;
+      }
+
       localStorage.setItem("stations", JSON.stringify(stationsdata));
     })
   .catch((err) => {});

@@ -46,7 +46,7 @@ function Station() {
 
         let typeData;
         if (dataType == "Wind speed") typeData = station_data.wind_speed;
-        else if (dataType == "Humidity") typeData = station_data.cloud_cover;
+        else if (dataType == "Humidity") typeData = station_data.humidity;
         else
           document.getElementById("noData").innerHTML =
             "No data available for data type";

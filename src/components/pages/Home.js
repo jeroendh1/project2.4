@@ -1,9 +1,13 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import Map from "../../components/map.js";
+import Warnings from "../../components/Warnings.js";
+import { useNavigate } from 'react-router-dom';
 
 var top10 = "";
 let stations = JSON.parse(localStorage.getItem("stations"));
+
+// console.log(stations);
 // for (const station of stations){
 //   console.log(station)
 // }
@@ -91,6 +95,7 @@ function Home() {
                     </Card.Body>
                   </Card>
                 </Col>
+                <Warnings/>
               </Row>
             </Col>
             <Col sm={12} md={4} lg={3}>
