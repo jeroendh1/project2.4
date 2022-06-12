@@ -49,7 +49,7 @@ function Home() {
                     <Card.Body>
                       <Card.Title>Highest wind speed</Card.Title>
                       <Card.Subtitle className="mb-4 text-muted">
-                        In Arabic peninsula
+                        In and around Arabic peninsula
                       </Card.Subtitle>
                       <h6
                         className="mt-4"
@@ -98,7 +98,7 @@ function Home() {
                 <Card.Body>
                   <Card.Title>Top 10 Windiest Places</Card.Title>
                   <Card.Subtitle className="mb-4 text-muted">
-                    In Arabic peninsula
+                    In and around Arabic peninsula
                   </Card.Subtitle>
                   <div id="top10" dangerouslySetInnerHTML={{ __html: top10 }} />
                 </Card.Body>

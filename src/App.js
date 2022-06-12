@@ -15,7 +15,7 @@ date.setDate(date.getDate() - 70);
 const lastWeek = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 //set markers
 fetch(
-  'http://127.0.0.1:8001/api/weatherData/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862?columns=wind_speed,cloud_cover&date_start='+ lastWeek+'&date_end='+today
+  'http://127.0.0.1:8001/api/weatherData/fa151eab21beca2e70dc029fbeb6f8449c090059534f08f22425beb00346f862?columns=wind_speed&date_start='+ lastWeek+'&date_end='+today
 )
   .then((response =>  response.json()))
   .then((stationsdata) => {
@@ -35,6 +35,14 @@ fetch(
   })
   .catch((err) => { });
 
+fetch(
+  'http://127.0.0.1:8001/api/weatherData/f680676ff2448c688d1866b50d66f60f7dbc05c0a15bbdbdf52d4487d6ae3732?columns=humidity&date_start='+ lastWeek+'&date_end='+today
+)
+  .then((response =>  response.json()))
+  .then((stationsdata) => {
+      localStorage.setItem("stationsDataHumidity", JSON.stringify(stationsdata));
+    })
+  .catch((err) => {});
 
 function App() {
   return (
