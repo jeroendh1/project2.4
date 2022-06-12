@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import Map from "../../components/map.js";
-import Warnings from "../../components/Warnings";
+import Warnings from "../../components/Warnings.js";
 import { useNavigate } from 'react-router-dom';
 
 var top10 = "";
@@ -95,17 +95,7 @@ function Home() {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col className="mt-6" md={6}>
-                  <Card className="center">
-                    <Card.Body>
-                      <Card.Title>Warnings</Card.Title>
-                      <Card.Subtitle className="mb-4 text-muted">
-                        Humidity Threshold Exceeded
-                      </Card.Subtitle>
-                          <Warnings stations={Object.entries(stations)} navigation={useNavigate()}></Warnings>
-                    </Card.Body>
-                  </Card>
-                </Col>
+                <Warnings/>
               </Row>
             </Col>
             <Col sm={12} md={4} lg={3}>

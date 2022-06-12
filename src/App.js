@@ -9,7 +9,8 @@ import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import Test from './components/pages/test';
 
-const HUMIDITY_THRESHOLD = 85;
+export const HUMIDITY_THRESHOLD = 85;
+export const WIND_SPEED_THRESHOLD = 25;
 
 let date = new Date(); 
 const today = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -23,7 +24,7 @@ fetch(
   .then((stationsdata) => {
       for (const station of Object.values(stationsdata)) {
         const last_entry = station.data[station.data.length - 1];
-        station.warning = last_entry.humidity >= HUMIDITY_THRESHOLD;
+        station.warning = last_entry.humidity > HUMIDITY_THRESHOLD || last_entry.wind_speed > WIND_SPEED_THRESHOLD;
       }
 
       localStorage.setItem("stations", JSON.stringify(stationsdata));
