@@ -10,7 +10,7 @@ import Register from './components/pages/Register';
 import Test from './components/pages/test';
 
 export const HUMIDITY_THRESHOLD = 85;
-export const WIND_SPEED_THRESHOLD = 25;
+export const WIND_SPEED_THRESHOLD = 63;
 
 let date = new Date(); 
 const today = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
