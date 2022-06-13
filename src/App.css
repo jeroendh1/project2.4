@@ -266,8 +266,11 @@ color: #a7a7a7!important;
   /* background-color: #d3eae4; */
 }
 
-
 #noData {
   color: red;
   font-weight: bold;
+}
+
+#Graph {  
+  max-height: 300px;
 }

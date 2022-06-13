@@ -32,8 +32,9 @@ function Station() {
         data: [],
         fill: true,
         backgroundColor: "rgba(75,192,192,0.2)",
-        borderColor: "rgba(75,192,192,1)",
+        borderColor: "rgba(75,192,192,1)",        
       },
+      
     ],
   });
 
@@ -130,7 +131,7 @@ function Station() {
               >
                 Humidity
               </button>
-              <Line id="Graph" data={data} />
+                <Line id="Graph" data={data} options={{maintainAspectRatio: false}}/>
               {/* <img className="img-fluid" src="map.png"/> */}
             </Col>
             <Col sm={4}>
