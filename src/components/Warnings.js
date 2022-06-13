@@ -18,7 +18,6 @@ export default function Warnings() {
         const location = station.location;
         const humidity = station.data[station.data.length - 1].humidity;
         const wind_speed = station.data[station.data.length - 1].wind_speed;
-
         return (
             <Col key={index} className="mt-4" md={4}>
                 <Card className="center btn btn-outline-dark" onClick={() => navigate(`station/${id}`)}>
