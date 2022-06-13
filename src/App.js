@@ -11,6 +11,8 @@ import Test from './components/pages/test';
 
 export const HUMIDITY_THRESHOLD = 85;
 export const WIND_SPEED_THRESHOLD = 63;
+export const HUMIDITY_STATION_KEY = "stationsDataHumidity";
+export const WIND_SPEED_STATION_KEY = "stationsDataWindspeed";
 
 let date = new Date(); 
 const today = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -24,9 +26,9 @@ fetch(
   .then((stationsdata) => {
       for (const station of Object.values(stationsdata)) {
         const last_entry = station.data[station.data.length - 1];
-        station.warning = last_entry.humidity > HUMIDITY_THRESHOLD || last_entry.wind_speed > WIND_SPEED_THRESHOLD;
+        station.warning = last_entry.wind_speed > WIND_SPEED_THRESHOLD;
       }
-      localStorage.setItem("stations", JSON.stringify(stationsdata));
+      localStorage.setItem(WIND_SPEED_STATION_KEY, JSON.stringify(stationsdata));
     })
   .catch((err) => {});
   
@@ -47,7 +49,11 @@ fetch(
 )
   .then((response =>  response.json()))
   .then((stationsdata) => {
-      localStorage.setItem("stationsDataHumidity", JSON.stringify(stationsdata));
+      for (const station of Object.values(stationsdata)) {
+        const last_entry = station.data[station.data.length - 1];
+        station.warning = last_entry.humidity > HUMIDITY_THRESHOLD;
+      }
+      localStorage.setItem(HUMIDITY_STATION_KEY, JSON.stringify(stationsdata));
     })
   .catch((err) => {});
 
