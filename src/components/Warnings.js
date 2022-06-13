@@ -12,7 +12,7 @@ export function WindspeedWarnings() {
         if (station.warning) sorted_stations.push(id);
     }
 
-    sorted_stations.sort((a, b) => stations[a].data[stations[a].data.length - 1].wind_speed - stations[b].data[stations[b].data.length - 1].wind_speed);
+    sorted_stations.sort((a, b) => stations[b].data[stations[b].data.length - 1].wind_speed - stations[a].data[stations[a].data.length - 1].wind_speed);
 
     return (
         <Col className="mt-6" md={6}>
@@ -63,7 +63,7 @@ export function HumidityWarnings() {
         if (station.warning) sorted_stations.push(id);
     }
 
-    sorted_stations.sort((a, b) => stations[a].data[stations[a].data.length - 1].humidity - stations[b].data[stations[b].data.length - 1].humidity);
+    sorted_stations.sort((a, b) => stations[b].data[stations[b].data.length - 1].humidity - stations[a].data[stations[a].data.length - 1].humidity);
 
     return (
         <Col className="mt-6" md={6}>
