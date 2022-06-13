@@ -16,6 +16,8 @@ function Station() {
   var fetchedTimeData = [];
   var fetchedTypeData = [];
   var dataType = localStorage.getItem("currentDataType");
+  let stations = JSON.parse(localStorage.getItem("stations"));
+  var lastChartDay = '';
 
   //   console.log('Data from station: '+stationId );
 
@@ -40,19 +42,25 @@ function Station() {
     fetchedTimeData = [];
     fetchedTypeData = [];
 
-    let stations = JSON.parse(localStorage.getItem("stations"));
+    stations = JSON.parse(localStorage.getItem("stations"));
     if (stations != null) {
       for (const station_data of stations[stationId].data) {
         console.log(station_data);
         console.log(dataType);
         let typeData;
         if (dataType == "Wind speed") typeData = station_data.wind_speed;
-        else if (dataType == "Humidity") typeData = station_data.cloud_cover;
+        else if (dataType == "Humidity") typeData = station_data.humidity;
         else
           document.getElementById("noData").innerHTML =
             "No data available for data type";
-        const time = station_data.date + " " + station_data.time;
-        fetchedTimeData.push(time);
+        var day = station_data.date
+        day = getDayName(day, "en-EN").slice(0,3);
+        var time = station_data.time
+        time = time.split(':')
+        var date = ''
+        if (lastChartDay != day) {date = day; lastChartDay = date}
+        date += ' '+time[0]+'h'
+        fetchedTimeData.push(date);
         fetchedTypeData.push(typeData);
       }
       // fetchedData = {windSpeed: response[0].wind_speed, time: response[0].time}
@@ -85,6 +93,11 @@ function Station() {
   function changeDataType(type) {
     localStorage.setItem("currentDataType", type);
   }
+  function getDayName(dateStr, locale)
+  {
+      var date = new Date(dateStr);
+      return date.toLocaleDateString(locale, { weekday: 'long' });        
+  }
 
   return (
     <div className="Home">
@@ -93,6 +106,9 @@ function Station() {
           <Row>
             <Col sm={8}>
               {/* <div id='map'></div> */}
+              <h2>Station: {stationId}</h2>
+              <h5>Country: {stations[stationId].country}</h5>
+              <h5>Location: {stations[stationId].location}</h5>
               <div id="noData"></div>
               <button
                 id="Windspeed"
