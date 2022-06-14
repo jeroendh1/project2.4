@@ -17,6 +17,8 @@ function Station() {
   var fetchedTimeData = [];
   var fetchedTypeData = [];
   var dataType = localStorage.getItem("currentDataType");
+  let stations = JSON.parse(localStorage.getItem("stations"));
+  var lastChartDay = '';
 
   //   console.log('Data from station: '+stationId );
 
@@ -31,8 +33,9 @@ function Station() {
         data: [],
         fill: true,
         backgroundColor: "rgba(75,192,192,0.2)",
-        borderColor: "rgba(75,192,192,1)",
+        borderColor: "rgba(75,192,192,1)",        
       },
+      
     ],
   });
 
@@ -54,8 +57,14 @@ function Station() {
         else
           document.getElementById("noData").innerHTML =
             "No data available for data type";
-        const time = station_data.date + " " + station_data.time;
-        fetchedTimeData.push(time);
+        var day = station_data.date
+        day = getDayName(day, "en-EN").slice(0,3);
+        var time = station_data.time
+        time = time.split(':')
+        var date = ''
+        if (lastChartDay != day) {date = day; lastChartDay = date}
+        date += ' '+time[0]+'h'
+        fetchedTimeData.push(date);
         fetchedTypeData.push(typeData);
       }
       // fetchedData = {windSpeed: response[0].wind_speed, time: response[0].time}
@@ -88,6 +97,11 @@ function Station() {
   function changeDataType(type) {
     localStorage.setItem("currentDataType", type);
   }
+  function getDayName(dateStr, locale)
+  {
+      var date = new Date(dateStr);
+      return date.toLocaleDateString(locale, { weekday: 'long' });        
+  }
 
   return (
     <div className="Home">
@@ -96,6 +110,9 @@ function Station() {
           <Row>
             <Col sm={8}>
               {/* <div id='map'></div> */}
+              <h2>Station: {stationId}</h2>
+              <h5>Country: {stations[stationId].country}</h5>
+              <h5>Location: {stations[stationId].location}</h5>
               <div id="noData"></div>
               <button
                 id="Windspeed"
@@ -117,7 +134,7 @@ function Station() {
               >
                 Humidity
               </button>
-              <Line id="Graph" data={data} />
+                <Line id="Graph" data={data} options={{maintainAspectRatio: false}}/>
               {/* <img className="img-fluid" src="map.png"/> */}
             </Col>
             <Col sm={4}>
