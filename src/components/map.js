@@ -35,7 +35,7 @@ export default function Map() {
       
         .setPopup(
           new maplibregl.Popup({ offset: 25 }).setHTML(
-            `<p><strong>${station_data.country}</strong><br>${station_data.location}</p><p> Wind ${station_data.data[0].wind_speed} km/h</p><a class="markerLink" id="${station_id}" >Station info </a>  `
+            `<p><strong>${station_data.country}</strong><br>${station_data.location}</p><p> Wind ${station_data.data[station_data.data.length - 1].wind_speed} km/h</p><a class="markerLink" id="${station_id}" >Station info </a>  `
           )
         )
         .addTo(map.current);
