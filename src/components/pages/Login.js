@@ -11,7 +11,8 @@ export default class Register extends Component {
     axios
       .post(api_base + "/login", reactData)
       .then(function(response) {
-        window.location = response.data;
+        localStorage.setItem("Token", response.data.token);
+        window.location = response.data.redirect;
         console.log(response.data);
       })
       .catch(function(error) {

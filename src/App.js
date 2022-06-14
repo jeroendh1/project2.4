@@ -8,6 +8,7 @@ import Station from './components/pages/Station';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import Test from './components/pages/test';
+import RequireRole from "./components/RequireRole";
 
 let date = new Date(); 
 const today = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -42,12 +43,28 @@ function App() {
       <BrowserRouter>
         <Navbar/>
         <Routes>
-          <Route path='/' exact element={ <Home/>} />
-          <Route path='/home'  element={ <Home/>}/>
+            {/*Public routes */}
             <Route path='/login'  element={ <Login/>}/>
-            <Route path='/register'  element={ <Register/>}/>
-            <Route path='/test'  element={ <Test/>}/>
-            <Route path="/station/:stationid" element={ <Station/> } />
+
+            {/*Admin and User routes */}
+            <Route element={<RequireRole allowedRoles={["Admin", "User"]} />}>
+                <Route path="/home" element={<Home />} />
+            </Route>
+            <Route element={<RequireRole allowedRoles={["Admin", "User"]} />}>
+                <Route path="/station/:stationid" element={ <Station/> } />
+            </Route>
+            <Route element={<RequireRole allowedRoles={["Admin", "User"]} />}>
+                <Route path='/'  element={ <Home/>}/>
+            </Route>
+
+            {/*Only Admin routes */}
+            <Route element={<RequireRole allowedRoles={["Admin"]} />}>
+                <Route path="/test" element={<Test />} />
+            </Route>
+            <Route element={<RequireRole allowedRoles={["Admin"]} />}>
+                <Route path="/register" element={<Register />} />
+            </Route>
+
          </Routes>
          <Footer/>
       </BrowserRouter>
