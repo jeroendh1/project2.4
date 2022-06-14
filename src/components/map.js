@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from "react";
 import maplibregl from '!maplibre-gl'; // ! is important here
 import maplibreglWorker from "maplibre-gl/dist/maplibre-gl-csp-worker";
 import { useNavigate } from 'react-router-dom';
+import { WIND_SPEED_STATION_KEY } from "../App";
 maplibregl.workerClass = maplibreglWorker;
 
 export default function Map() {
@@ -21,7 +22,7 @@ export default function Map() {
     });
     map.current.addControl(new maplibregl.NavigationControl(), 'top-right');
 
-    let stations = JSON.parse(localStorage.getItem("stations"));
+    let stations = JSON.parse(localStorage.getItem(WIND_SPEED_STATION_KEY));
     
     for (const [station_id, station_data] of Object.entries(stations)) {
       // create a HTML element for each feature

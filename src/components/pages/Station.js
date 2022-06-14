@@ -5,6 +5,7 @@ import { Line } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
 // eslint-disable-next-line
 import { Chart as ChartJS } from "chart.js/auto";
+import { HUMIDITY_STATION_KEY, WIND_SPEED_STATION_KEY } from "../../App";
 // import { Chart }            from 'react-chartjs-2'
 // import { wait } from "@testing-library/user-event/dist/utils";
 function Station() {
@@ -40,7 +41,10 @@ function Station() {
     fetchedTimeData = [];
     fetchedTypeData = [];
 
-    let stations = JSON.parse(localStorage.getItem("stations"));
+    let stations = null;
+    if (dataType == "Wind speed") stations = JSON.parse(localStorage.getItem(WIND_SPEED_STATION_KEY));
+    if (dataType == "Humidity") stations = JSON.parse(localStorage.getItem(HUMIDITY_STATION_KEY));
+
     if (stations != null) {
       for (const station_data of stations[stationId].data) {
 
