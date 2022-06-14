@@ -54,6 +54,15 @@ function routes (app){
             }
         });
     })
+    app.get('/getEmployee', async (req, res) => {
+        console.log('getEmployee')
+        let sql = "select id, email, role from user"
+        let query = mysqldb.query(sql, (err, result) => {
+            if (err) throw err
+            console.log(result)
+            res.send(result);
+        })
+    })
 
     app.post('/test', (request, response) => {
 

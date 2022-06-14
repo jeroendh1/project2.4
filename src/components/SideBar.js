@@ -11,7 +11,9 @@ function SideBar(){
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Link className="nav-item nav-link" to="/">Home</Link>
-                        <Link className="nav-item nav-link" to="/home">Link</Link>
+                        {localStorage.getItem('Token') != null? <Link className="nav-item nav-link" to="/signout">Logout</Link> : <Link className="nav-item nav-link" to="/Login">Login</Link>}
+                     
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>

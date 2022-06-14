@@ -3,7 +3,7 @@ import "./App.css";
 import Navbar from "./components/SideBar";
 import Home from "./components/pages/Home";
 import Footer from "./components/Footer";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Station from './components/pages/Station';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
@@ -14,6 +14,8 @@ export const HUMIDITY_THRESHOLD = 85;
 export const WIND_SPEED_THRESHOLD = 63;
 export const HUMIDITY_STATION_KEY = "stationsDataHumidity";
 export const WIND_SPEED_STATION_KEY = "stationsDataWindspeed";
+
+
 
 let date = new Date(); 
 const today = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -57,6 +59,8 @@ fetch(
       localStorage.setItem(HUMIDITY_STATION_KEY, JSON.stringify(stationsdata));
     })
   .catch((err) => {});
+const Signout = () => {localStorage.removeItem('Token');
+ window.location.replace('/login')}
 
 function App() {
   return (
@@ -66,7 +70,7 @@ function App() {
         <Routes>
             {/*Public routes */}
             <Route path='/login'  element={ <Login/>}/>
-
+          
             {/*Admin and User routes */}
             <Route element={<RequireRole allowedRoles={["Admin", "User"]} />}>
                 <Route path="/home" element={<Home />} />
@@ -86,6 +90,9 @@ function App() {
                 <Route path="/register" element={<Register />} />
             </Route>
 
+           
+                <Route path="/signout" element={<Signout/>} />
+         
          </Routes>
          <Footer/>
       </BrowserRouter>

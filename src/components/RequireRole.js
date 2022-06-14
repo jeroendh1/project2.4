@@ -18,9 +18,12 @@ function getRoles(){
 }
 
 function verifyToken() {
-    const token =localStorage.getItem("Token").split(' ')[0]
-    const secretToken = "d3a4280dc18a83d170ceb4e8db3feac3bbc9d6e6722d25dad0c3131ebd4274861083234c67a00b3cf0dc17e4658e703e1f188a7175989277a0d0aaf3bff844bd"
+
+    const token =localStorage.getItem("Token");
     if (token == null) return false
+    const payload = token.split(' ')[0]
+    const secretToken = "d3a4280dc18a83d170ceb4e8db3feac3bbc9d6e6722d25dad0c3131ebd4274861083234c67a00b3cf0dc17e4658e703e1f188a7175989277a0d0aaf3bff844bd"
+    
     return jwt.verify(token, secretToken, function (err, data) {
         return !err;
     });
