@@ -12,7 +12,6 @@ function getRoles(){
     if (verifyToken()){
         console.log(verifyToken())
         const token = localStorage.getItem("Token")
-        console.log(JSON.parse(atob(token.split('.')[1])).roles[0])
         return JSON.parse(atob(token.split('.')[1])).roles[0]
     }
 }

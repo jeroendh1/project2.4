@@ -15,7 +15,7 @@ export function WindspeedWarnings() {
     sorted_stations.sort((a, b) => stations[b].data[stations[b].data.length - 1].wind_speed - stations[a].data[stations[a].data.length - 1].wind_speed);
 
     return (
-        <Col className="mt-6" md={6}>
+        <Col className="mt-6" md={12} lg={6}>
             <Card className="center">
                 <Card.Body>
                     {sorted_stations.length > 0 ? (
@@ -34,7 +34,7 @@ export function WindspeedWarnings() {
                             const location = station.location;
 
                             return (
-                                <Col key={index} className="mt-1" md={4}>
+                                <Col key={index} className="mt-1" sm={12} md={4}>
                                     <Card className="center" >
                                         <Card.Body>
                                             <Card.Title>{id}</Card.Title>
@@ -66,7 +66,7 @@ export function HumidityWarnings() {
     sorted_stations.sort((a, b) => stations[b].data[stations[b].data.length - 1].humidity - stations[a].data[stations[a].data.length - 1].humidity);
 
     return (
-        <Col className="mt-6" md={6}>
+        <Col className="mt-6" md={12} lg={6}>
             <Card className="center">
                 <Card.Body>
                     {sorted_stations.length > 0 ? (
