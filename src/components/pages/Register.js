@@ -7,7 +7,9 @@ export default class Register extends Component {
     const api_base = "http://localhost:3001";
     const password = event.target.password.value;
     const email = event.target.email.value;
-    const reactData = { email: email, password: password };
+    const admin = event.target.admin.checked;
+   
+    const reactData = { email: email, password: password, admin: admin };
     axios.post(api_base + "/register", reactData).then(
       (response) => {
         window.location.reload(true);
@@ -84,6 +86,16 @@ export default class Register extends Component {
                           type="password"
                           id="password"
                           className="form-control"
+                          placeholder="Enter password"
+                        />
+                      </div>
+                      <div className="mb-3">
+                      <label> Admin </label>
+                        <input
+                          name="admin"
+                          type="checkbox"
+                          id="admin"
+                          className="form-check-input ms-2"
                           placeholder="Enter password"
                         />
                       </div>

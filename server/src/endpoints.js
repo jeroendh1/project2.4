@@ -13,8 +13,8 @@ function routes (app){
         console.log('Inserting a new employee...')
         console.log(req.body)
         const hash_password = await bcrypt.hash(req.body.password, 10);
-        let sql = "INSERT INTO user (`email`, `password`) VALUES (?, ?)"
-        let param = [req.body.email, hash_password]
+        let sql = "INSERT INTO user (`email`, `password`, `role`) VALUES (?, ?, ?)"
+        let param = [req.body.email, hash_password, req.body.admin]
         let query = mysqldb.query(sql, param, (err, result) => {
             if (err) throw err
             console.log('Employee added...')
