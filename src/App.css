@@ -180,7 +180,9 @@ body {
   transform: translateY(-40px);
   background-color: #f5f5f5;
 }
-
+.btn-outline-info{
+  background-color: #17a2b8!important;
+}
 
 nav.mb-4.navbar.navbar-expand-lg.navbar-light.bg-light, footer.py-3.mt-4{
   background-color: #272727!important;

@@ -108,7 +108,7 @@ function Station() {
       <>
         <Container>
           <Row>
-            <Col sm={8}>
+            <Col sm={12}>
               {/* <div id='map'></div> */}
               <h2>Station: {stationId}</h2>
               <h5>Country: {stations[stationId].country}</h5>
@@ -116,7 +116,7 @@ function Station() {
               <div id="noData"></div>
               <button
                 id="Windspeed"
-                className="dataTypeButton"
+                className="btn btn-primary"
                 onClick={() => {
                   localStorage.setItem("currentDataType", "Wind speed");
                   setDataType("Wind speed");
@@ -126,7 +126,7 @@ function Station() {
               </button>
               <button
                 id="Humidity"
-                className="dataTypeButton"
+                className="ms-2 btn btn-primary"
                 onClick={() => {
                   localStorage.setItem("currentDataType", "Humidity");
                   setDataType("Humidity");
@@ -137,31 +137,7 @@ function Station() {
                 <Line id="Graph" data={data} options={{maintainAspectRatio: false}}/>
               {/* <img className="img-fluid" src="map.png"/> */}
             </Col>
-            <Col sm={4}>
-              <Card className="center" style={{ width: "18rem" }}>
-                <Card.Body>
-                  <Card.Title>Top 10 Windiest Places</Card.Title>
-                  <Card.Subtitle className="mb-4 text-muted">
-                    In Arabic peninsula
-                  </Card.Subtitle>
-                  1.<span className="ms-2">Oman</span>{" "}
-                  <span className="ms-4"> 80 km/h</span>
-                  <hr></hr>
-                  2.<span className="ms-2">Jemen</span>{" "}
-                  <span className="ms-4"> 75 km/h</span>
-                  <hr></hr>
-                  3.<span className="ms-2">Saudi-Arabië</span>{" "}
-                  <span className="ms-4"> 69 km/h</span>
-                  <hr></hr>
-                  4.<span className="ms-2">Qatar</span>{" "}
-                  <span className="ms-4"> 58 km/h</span>
-                  <hr></hr>
-                  5.<span className="ms-2">Iran</span>{" "}
-                  <span className="ms-4"> 57 km/h</span>
-                  <hr></hr>
-                </Card.Body>
-              </Card>
-            </Col>
+          
           </Row>
         </Container>
       </>
