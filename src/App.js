@@ -10,7 +10,7 @@ import Register from './components/pages/Register';
 import Test from './components/pages/test';
 import RequireRole from "./components/RequireRole";
 
-export const HUMIDITY_THRESHOLD = 85;
+export const HUMIDITY_THRESHOLD = 35;
 export const WIND_SPEED_THRESHOLD = 63;
 export const HUMIDITY_STATION_KEY = "stationsDataHumidity";
 export const WIND_SPEED_STATION_KEY = "stationsDataWindspeed";

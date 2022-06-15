@@ -8,7 +8,7 @@ const RequireRole = ({ allowedRoles }) =>
     allowedRoles.includes(getRoles()) ? <Outlet/> :  <Navigate to="/login" replace/>
 
 
-function getRoles(){
+export function getRoles(){
     if (verifyToken()){
         console.log(verifyToken())
         const token = localStorage.getItem("Token")

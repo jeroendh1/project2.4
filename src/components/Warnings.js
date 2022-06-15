@@ -28,7 +28,7 @@ export function WindspeedWarnings() {
                             const station = stations[id];
                             const warning = station.warning;
 
-                            if (!warning) return;
+                            // if (!warning) return;
 
                             const country = station.country;
                             const location = station.location;
@@ -79,7 +79,7 @@ export function HumidityWarnings() {
                             const station = stations[id];
                             const warning = station.warning;
 
-                            if (!warning) return;
+                            // if (!warning) return;
 
                             const country = station.country;
                             const location = station.location;
