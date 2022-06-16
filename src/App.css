@@ -274,3 +274,7 @@ color: #a7a7a7!important;
 #Graph {  
   max-height: 300px;
 }
+
+.disabled {
+  display: none;
+}

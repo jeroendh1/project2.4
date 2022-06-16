@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { Line } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
@@ -10,13 +9,16 @@ import { Chart as ChartJS } from "chart.js/auto";
 function Station() {
   if (localStorage.getItem("currentDataType") == null)
     localStorage.setItem("currentDataType", "Wind speed");
-  const navigate = useNavigate();
   const stationId = useParams().stationid;
-  var localData = 0;
+  let stations = JSON.parse(localStorage.getItem("stations"));
+  var humidityClassName = "dataTypeButton "
+  if (stations[stationId].data[0].humidity == null) {
+    localStorage.setItem("currentDataType", "Wind speed");
+    humidityClassName += 'disabled'
+  }
   var fetchedTimeData = [];
   var fetchedTypeData = [];
   var dataType = localStorage.getItem("currentDataType");
-  let stations = JSON.parse(localStorage.getItem("stations"));
   var lastChartDay = '';
 
   //   console.log('Data from station: '+stationId );
@@ -123,7 +125,7 @@ function Station() {
               </button>
               <button
                 id="Humidity"
-                className="dataTypeButton"
+                className= {humidityClassName}
                 onClick={() => {
                   localStorage.setItem("currentDataType", "Humidity");
                   setDataType("Humidity");
