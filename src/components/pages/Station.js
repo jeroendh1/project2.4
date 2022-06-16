@@ -5,7 +5,8 @@ import { Line } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
 // eslint-disable-next-line
 import { Chart as ChartJS } from "chart.js/auto";
-import { HUMIDITY_STATION_KEY, WIND_SPEED_STATION_KEY } from "../../App";
+import { HUMIDITY_STATION_KEY, WIND_SPEED_STATION_KEY } from "../../App.js";
+import { DownloadDataButton } from "../DownloadDataButton";
 // import { Chart }            from 'react-chartjs-2'
 // import { wait } from "@testing-library/user-event/dist/utils";
 function Station() {
@@ -17,7 +18,8 @@ function Station() {
   var fetchedTimeData = [];
   var fetchedTypeData = [];
   var dataType = localStorage.getItem("currentDataType");
-  let stations = localStorage.getItem("currentDataType") === "Wind speed" ? JSON.parse(localStorage.getItem(WIND_SPEED_STATION_KEY)) : JSON.parse(localStorage.getItem(HUMIDITY_STATION_KEY));
+  let dataKey = dataType === "Wind speed" ? WIND_SPEED_STATION_KEY : HUMIDITY_STATION_KEY;
+  let stations = JSON.parse(localStorage.getItem(dataKey));
   var lastChartDay = '';
 
   //   console.log('Data from station: '+stationId );
@@ -133,6 +135,7 @@ function Station() {
               >
                 Humidity
               </button>
+              <DownloadDataButton station_id={stationId} data_key={dataKey}/>
                 <Line id="Graph" data={data} options={{maintainAspectRatio: false}}/>
               {/* <img className="img-fluid" src="map.png"/> */}
             </Col>
