@@ -3,7 +3,8 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import Map from "../../components/map.js";
 import {WindspeedWarnings, HumidityWarnings} from "../../components/Warnings.js";
 import { useNavigate } from 'react-router-dom';
-import { WIND_SPEED_STATION_KEY } from "../../App.js";   
+import { HUMIDITY_STATION_KEY, WIND_SPEED_STATION_KEY } from "../../App.js";
+import { DownloadAll } from "../DownloadAll";
       
 function Home() {
   var top10 = "";
@@ -45,6 +46,22 @@ function Home() {
             <Col className="mb-4" sm={12} md={8} lg={9}>
               <Map />
               <Row>
+              <Col className="mt-6" md={12} lg={6}>
+                  <Card className="center">
+                    <Card.Body>
+                      <Card.Title>Windspeed Data Set</Card.Title>
+                      <DownloadAll data_key={WIND_SPEED_STATION_KEY}/>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col className="mt-6" md={12} lg={6}>
+                  <Card className="center">
+                    <Card.Body>
+                      <Card.Title>Humidity Data Set</Card.Title>
+                      <DownloadAll data_key={WIND_SPEED_STATION_KEY}/>
+                    </Card.Body>
+                  </Card>
+                </Col>
                 <Col className="mt-4" sm={0} md={4}>
                   <Card className="center ">
                     <Card.Body>

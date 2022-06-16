@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 // eslint-disable-next-line
 import { Chart as ChartJS } from "chart.js/auto";
 import { HUMIDITY_STATION_KEY, WIND_SPEED_STATION_KEY } from "../../App.js";
-import { DownloadDataButton } from "../DownloadDataButton";
+import { DownloadStation } from "../DownloadStation";
 // import { Chart }            from 'react-chartjs-2'
 // import { wait } from "@testing-library/user-event/dist/utils";
 function Station() {
@@ -135,7 +135,7 @@ function Station() {
               >
                 Humidity
               </button>
-              <DownloadDataButton station_id={stationId} data_key={dataKey}/>
+              <DownloadStation station_id={stationId} data_key={dataKey}/> 
                 <Line id="Graph" data={data} options={{maintainAspectRatio: false}}/>
               {/* <img className="img-fluid" src="map.png"/> */}
             </Col>
