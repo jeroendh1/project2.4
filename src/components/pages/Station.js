@@ -17,7 +17,7 @@ function Station() {
   var fetchedTimeData = [];
   var fetchedTypeData = [];
   var dataType = localStorage.getItem("currentDataType");
-  let stations = JSON.parse(localStorage.getItem("stations"));
+  let stations = localStorage.getItem("currentDataType") === "Wind speed" ? JSON.parse(localStorage.getItem(WIND_SPEED_STATION_KEY)) : JSON.parse(localStorage.getItem(HUMIDITY_STATION_KEY));
   var lastChartDay = '';
 
   //   console.log('Data from station: '+stationId );
@@ -44,7 +44,6 @@ function Station() {
     fetchedTimeData = [];
     fetchedTypeData = [];
 
-    let stations = null;
     if (dataType == "Wind speed") stations = JSON.parse(localStorage.getItem(WIND_SPEED_STATION_KEY));
     if (dataType == "Humidity") stations = JSON.parse(localStorage.getItem(HUMIDITY_STATION_KEY));
 
