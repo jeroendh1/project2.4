@@ -27,8 +27,16 @@ export const DownloadDataButton = (props) => {
     const data_key = props.data_key;
     const stations = JSON.parse(localStorage.getItem(data_key));
     const station = stations[station_id];
-    const xml = OBJtoXML(station);
-    const data = new Blob([`<station><id>${station_id}</id>${xml}</station>`]);
+    const xml = OBJtoXML({
+        id: station_id,
+        location: station.location,
+        country: station.country,
+        longitude: station.longitude,
+        latitude: station.latitude,
+        warning: station.warning,
+        data: station.data.reverse(),
+    });
+    const data = new Blob([`<station>${xml}</station>`]);
     const url = URL.createObjectURL(data);
 
     return (
