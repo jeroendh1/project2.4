@@ -1,12 +1,13 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { Navbar, Container, Nav } from 'react-bootstrap'
+import { Navbar, Container, Nav, Image } from 'react-bootstrap'
+import Logo from "../assets/images/Logo.png"
 function SideBar(){
     return (
 <>
         <Navbar className="mb-4" bg="light" expand="lg">
             <Container>
-                <Navbar.Brand>Logo</Navbar.Brand>
+                <Navbar.Brand><Image src={Logo}/></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
