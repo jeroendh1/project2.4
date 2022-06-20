@@ -5,6 +5,7 @@ import { Line } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
 // eslint-disable-next-line
 import { Chart as ChartJS } from "chart.js/auto";
+import { HUMIDITY_STATION_KEY, WIND_SPEED_STATION_KEY } from "../../App";
 // import { Chart }            from 'react-chartjs-2'
 // import { wait } from "@testing-library/user-event/dist/utils";
 function Station() {
@@ -16,6 +17,8 @@ function Station() {
   var fetchedTimeData = [];
   var fetchedTypeData = [];
   var dataType = localStorage.getItem("currentDataType");
+  let stations = JSON.parse(localStorage.getItem("stations"));
+  var lastChartDay = '';
 
   //   console.log('Data from station: '+stationId );
 
@@ -30,8 +33,9 @@ function Station() {
         data: [],
         fill: true,
         backgroundColor: "rgba(75,192,192,0.2)",
-        borderColor: "rgba(75,192,192,1)",
+        borderColor: "rgba(75,192,192,1)",        
       },
+      
     ],
   });
 
@@ -40,19 +44,27 @@ function Station() {
     fetchedTimeData = [];
     fetchedTypeData = [];
 
-    let stations = JSON.parse(localStorage.getItem("stations"));
+    let stations = null;
+    if (dataType == "Wind speed") stations = JSON.parse(localStorage.getItem(WIND_SPEED_STATION_KEY));
+    if (dataType == "Humidity") stations = JSON.parse(localStorage.getItem(HUMIDITY_STATION_KEY));
+
     if (stations != null) {
       for (const station_data of stations[stationId].data) {
-        console.log(station_data);
-        console.log(dataType);
+
         let typeData;
         if (dataType == "Wind speed") typeData = station_data.wind_speed;
-        else if (dataType == "Humidity") typeData = station_data.cloud_cover;
+        else if (dataType == "Humidity") typeData = station_data.humidity;
         else
           document.getElementById("noData").innerHTML =
             "No data available for data type";
-        const time = station_data.date + " " + station_data.time;
-        fetchedTimeData.push(time);
+        var day = station_data.date
+        day = getDayName(day, "en-EN").slice(0,3);
+        var time = station_data.time
+        time = time.split(':')
+        var date = ''
+        if (lastChartDay != day) {date = day; lastChartDay = date}
+        date += ' '+time[0]+'h'
+        fetchedTimeData.push(date);
         fetchedTypeData.push(typeData);
       }
       // fetchedData = {windSpeed: response[0].wind_speed, time: response[0].time}
@@ -85,18 +97,26 @@ function Station() {
   function changeDataType(type) {
     localStorage.setItem("currentDataType", type);
   }
+  function getDayName(dateStr, locale)
+  {
+      var date = new Date(dateStr);
+      return date.toLocaleDateString(locale, { weekday: 'long' });        
+  }
 
   return (
     <div className="Home">
       <>
         <Container>
           <Row>
-            <Col sm={8}>
+            <Col sm={12}>
               {/* <div id='map'></div> */}
+              <h2>Station: {stationId}</h2>
+              <h5>Country: {stations[stationId].country}</h5>
+              <h5>Location: {stations[stationId].location}</h5>
               <div id="noData"></div>
               <button
                 id="Windspeed"
-                className="dataTypeButton"
+                className="btn btn-primary"
                 onClick={() => {
                   localStorage.setItem("currentDataType", "Wind speed");
                   setDataType("Wind speed");
@@ -106,7 +126,7 @@ function Station() {
               </button>
               <button
                 id="Humidity"
-                className="dataTypeButton"
+                className="ms-2 btn btn-primary"
                 onClick={() => {
                   localStorage.setItem("currentDataType", "Humidity");
                   setDataType("Humidity");
@@ -114,34 +134,10 @@ function Station() {
               >
                 Humidity
               </button>
-              <Line id="Graph" data={data} />
+                <Line id="Graph" data={data} options={{maintainAspectRatio: false}}/>
               {/* <img className="img-fluid" src="map.png"/> */}
             </Col>
-            <Col sm={4}>
-              <Card className="center" style={{ width: "18rem" }}>
-                <Card.Body>
-                  <Card.Title>Top 10 Windiest Places</Card.Title>
-                  <Card.Subtitle className="mb-4 text-muted">
-                    In Arabic peninsula
-                  </Card.Subtitle>
-                  1.<span className="ms-2">Oman</span>{" "}
-                  <span className="ms-4"> 80 km/h</span>
-                  <hr></hr>
-                  2.<span className="ms-2">Jemen</span>{" "}
-                  <span className="ms-4"> 75 km/h</span>
-                  <hr></hr>
-                  3.<span className="ms-2">Saudi-Arabië</span>{" "}
-                  <span className="ms-4"> 69 km/h</span>
-                  <hr></hr>
-                  4.<span className="ms-2">Qatar</span>{" "}
-                  <span className="ms-4"> 58 km/h</span>
-                  <hr></hr>
-                  5.<span className="ms-2">Iran</span>{" "}
-                  <span className="ms-4"> 57 km/h</span>
-                  <hr></hr>
-                </Card.Body>
-              </Card>
-            </Col>
+          
           </Row>
         </Container>
       </>
