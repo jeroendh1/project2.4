@@ -302,3 +302,7 @@ color: #1f5f91!important;
 .nav.justify-content-center.border-bottom.pb-3.mb-3{
   border-bottom: 2px solid #1f5f91 !important;
 }
+
+.disabled {
+  display: none;
+}
