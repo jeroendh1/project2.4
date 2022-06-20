@@ -253,6 +253,9 @@ footer {
 a.nav-item.nav-link, .navbar-brand, a.nav-link.px-2.text-muted, .text-center.text-muted{
 color: #1f5f91!important;
 }
+footer p{
+  margin: 5px;
+}
 /* end footer css */
 #top10{
   display: flex;
@@ -301,6 +304,14 @@ color: #1f5f91!important;
 }
 .nav.justify-content-center.border-bottom.pb-3.mb-3{
   border-bottom: 2px solid #1f5f91 !important;
+}
+button.btn.btn-primary{
+  background-color: #1f5f91;
+  border: #1f5f91;
+}
+a.btn.btn-success, .btn.btn-succes.ms-2{
+  background-color: rgb(151, 201, 62);
+  border: #97c93e;
 }
 
 .disabled {

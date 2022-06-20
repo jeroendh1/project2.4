@@ -37,20 +37,20 @@ function routes (app){
                     if (result) {
                         if (role === 0){
                             const token = generateAccessToken({ roles: ["User"] });
-                            response.send({redirect: "/", token: token})
+                            response.send({redirect: "/", token: token, httpStatus: 200})
                         } else {
                             const token = generateAccessToken({ roles: ["Admin"] });
-                            response.send({redirect: "/", token: token})
+                            response.send({redirect: "/", token: token, httpStatus: 200})
                         }
                         console.log("Ingelogd")
                     } else {
-                        response.send('/login')
+                        response.sendStatus(401);
                         console.log("Verkeerde wachtwoord")
                     }
                 });
             } else {
-                response.send('/login')
-                console.log("combinatie klopt niet ")
+                response.sendStatus(401);
+                console.log("Verkeerde wachtwoord")
             }
         });
     })

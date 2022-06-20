@@ -39,7 +39,7 @@ export function WindspeedWarnings() {
                                         <Card.Body>
                                             <Card.Title>{id}</Card.Title>
                                             <Card.Subtitle className="mb-4 text-muted">{location}, {country}</Card.Subtitle>
-                                            <Button className="btn btn-danger" onClick={() => { localStorage.setItem("currentDataType", "Wind speed"); navigate(`station/${id}`);}}>See More</Button>
+                                            <Button variant="danger" onClick={() => { localStorage.setItem("currentDataType", "Wind speed"); navigate(`station/${id}`);}}>See More</Button>
                                         </Card.Body>
                                     </Card>
                                 </Col>
@@ -90,7 +90,7 @@ export function HumidityWarnings() {
                                         <Card.Body>
                                             <Card.Title>{id}</Card.Title>
                                             <Card.Subtitle className="mb-4 text-muted">{location}, {country}</Card.Subtitle>
-                                            <Button className="btn btn-danger" onClick={() => { localStorage.setItem("currentDataType", "Humidity"); navigate(`station/${id}`);}}>See More</Button>
+                                            <Button variant="danger" onClick={() => { localStorage.setItem("currentDataType", "Humidity"); navigate(`station/${id}`);}}>See More</Button>
                                         </Card.Body>
                                     </Card>
                                 </Col>
