@@ -8,12 +8,24 @@ import { DownloadAll } from "../DownloadAll";
       
 function Home() {
   var top10 = "";
-  let stations = JSON.parse(localStorage.getItem(WIND_SPEED_STATION_KEY));
+  let windStations = JSON.parse(localStorage.getItem(WIND_SPEED_STATION_KEY));
+  let humidityStations = JSON.parse(localStorage.getItem(HUMIDITY_STATION_KEY));
+  let maxHumidity = (() => {
+    let max = null;
+    for (const station of Object.values(humidityStations)) {
+      if (max === null) {
+        max = station;
+      } else if (max.data[max.data.length - 1].humidity < station.data[station.data.length - 1].humidity) {
+        max = station;
+      }
+    }
+    return max;
+  })(humidityStations);
   let top10WindSpeeds = [];
 
-  if( stations != null){
+  if( windStations != null){
 
-    top10WindSpeeds = Object.values(stations).sort(
+    top10WindSpeeds = Object.values(windStations).sort(
       (a, b) => parseFloat(b.data[b.data.length -1 ].wind_speed) - parseFloat(a.data[a.data.length -1 ].wind_speed)
     );
     top10WindSpeeds.length = 10;
@@ -32,7 +44,7 @@ function Home() {
     }
   }
 
-  if( stations == null){
+  if( windStations == null){
     return (
       <p>Geen geldige gegevens!</p>
     )
@@ -58,7 +70,7 @@ function Home() {
                   <Card className="center">
                     <Card.Body>
                       <Card.Title>Humidity Data Set</Card.Title>
-                      <DownloadAll data_key={WIND_SPEED_STATION_KEY}/>
+                      <DownloadAll data_key={HUMIDITY_STATION_KEY}/>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -91,7 +103,10 @@ function Home() {
                       <Card.Subtitle className="mb-4 text-muted">
                         In Arabic peninsula
                       </Card.Subtitle>
-                      <h6 className="mt-4">Badiyah, Oman 76% </h6>
+                      <h6
+                        dangerouslySetInnerHTML={{
+                          __html: `${maxHumidity.location},  ${maxHumidity.country} ${maxHumidity.data[maxHumidity.data.length - 1].humidity}%`}} 
+                      ></h6>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -100,11 +115,11 @@ function Home() {
                     <Card.Body>
                       <Card.Title>Total number of stations</Card.Title>
                       <Card.Subtitle className="mb-4 text-muted">
-                        In Arabic peninsula
+                      In and around Arabic peninsula
                       </Card.Subtitle>
                       <h6
                         dangerouslySetInnerHTML={{
-                          __html:  Object.values(stations).length}}
+                          __html:  Object.values(windStations).length}}
                       ></h6>
                     </Card.Body>
                   </Card>

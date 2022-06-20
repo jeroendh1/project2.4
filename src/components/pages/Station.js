@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { Line } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
@@ -12,17 +11,24 @@ import { DownloadStation } from "../DownloadStation";
 function Station() {
   if (localStorage.getItem("currentDataType") == null)
     localStorage.setItem("currentDataType", "Wind speed");
-  const navigate = useNavigate();
   const stationId = useParams().stationid;
-  var localData = 0;
+
+  var humidityClassName = "dataTypeButton ms-2 btn btn-primary"
+  
   var fetchedTimeData = [];
   var fetchedTypeData = [];
   var dataType = localStorage.getItem("currentDataType");
   let dataKey = dataType === "Wind speed" ? WIND_SPEED_STATION_KEY : HUMIDITY_STATION_KEY;
+  
   let stations = JSON.parse(localStorage.getItem(dataKey));
-  var lastChartDay = '';
+  if (!JSON.parse(localStorage.getItem(HUMIDITY_STATION_KEY)).hasOwnProperty(stationId)) {
+    humidityClassName = 'disabled';
+    localStorage.setItem("currentDataType", "Wind speed");
+    dataKey = WIND_SPEED_STATION_KEY;
+    stations = JSON.parse(localStorage.getItem(WIND_SPEED_STATION_KEY));
+  }
 
-  //   console.log('Data from station: '+stationId );
+  var lastChartDay = '';
 
   var [dataType, setDataType] = useState(
     localStorage.getItem("currentDataType")
@@ -34,20 +40,19 @@ function Station() {
         label: dataType + " in last 7 days in km/h",
         data: [],
         fill: true,
-        backgroundColor: "rgba(75,192,192,0.2)",
-        borderColor: "rgba(75,192,192,1)",        
+        backgroundColor: "rgba(151, 201, 62, 0.2)",
+        borderColor: "rgba(151, 201, 62, 1)",        
       },
       
     ],
   });
 
   useEffect(() => {
-    //   console.log('update with '+dataType)
     fetchedTimeData = [];
     fetchedTypeData = [];
 
-    if (dataType == "Wind speed") stations = JSON.parse(localStorage.getItem(WIND_SPEED_STATION_KEY));
-    if (dataType == "Humidity") stations = JSON.parse(localStorage.getItem(HUMIDITY_STATION_KEY));
+    if (dataType == "Wind speed")  stations = JSON.parse(localStorage.getItem(WIND_SPEED_STATION_KEY));
+    if (dataType == "Humidity")  stations = JSON.parse(localStorage.getItem(HUMIDITY_STATION_KEY));
 
     if (stations != null) {
       for (const station_data of stations[stationId].data) {
@@ -83,8 +88,8 @@ function Station() {
             label: dataType + " in last 7 days in" + measurement,
             data: fetchedTypeData,
             fill: true,
-            backgroundColor: "rgba(75,192,192,0.2)",
-            borderColor: "rgba(75,192,192,1)",
+            backgroundColor: "rgba(151, 201, 62, 0.2)",
+            borderColor: "rgba(151, 201, 62, 1)",
           },
         ],
       });
@@ -127,7 +132,8 @@ function Station() {
               </button>
               <button
                 id="Humidity"
-                className="ms-2 btn btn-primary"
+                // className="ms-2 btn btn-primary"
+                className= {humidityClassName}
                 onClick={() => {
                   localStorage.setItem("currentDataType", "Humidity");
                   setDataType("Humidity");

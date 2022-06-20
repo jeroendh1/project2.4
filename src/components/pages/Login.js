@@ -13,10 +13,12 @@ export default class Register extends Component {
       .then(function(response) {
         localStorage.setItem("Token", response.data.token);
         window.location = response.data.redirect;
-        console.log(response.data);
       })
       .catch(function(error) {
         console.log(error);
+        if (error.response.status == 401) {
+          alert("Wrong credentials.");
+        }
       });
   }
   render() {
